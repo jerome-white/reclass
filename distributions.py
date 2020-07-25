@@ -14,11 +14,11 @@ class Distribution:
         col = 'F'
 
         return (pd
-                .Series(self.pdf(n), name=col)
+                .Series(self.pdf(n + 1), name=col)
                 .cumsum()
                 .to_frame()
-                .assign(Pk=lambda x: x[col].diff())
-                .fillna(0))
+                .assign(Pk=lambda x: x[col].diff().shift(-1))
+                .dropna())
 
     def pdf(self, n):
         raise NotImplementedError()
