@@ -10,7 +10,7 @@ class Distribution:
         self.t_min = t_min
         self.t_max = t_max
 
-    def __call__(self, n):
+    def __call__(self, n=100):
         col = 'F'
 
         return (pd
