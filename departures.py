@@ -36,9 +36,13 @@ df = pd.read_csv(sys.stdin, usecols=['infected'])
 start = len(df)
 
 records = reclass(df, k)
+recovered = (pd
+             .DataFrame
+             .from_records(records)
+             .groupby('day')
+             .sum())
+
 df = (pd
-      .DataFrame
-      .from_records(records)
-      .groupby('day')
-      .sum())
+      .concat((df, recovered), axis='columns')
+      .rename_axis('day', axis='index'))
 df.to_csv(sys.stdout)
