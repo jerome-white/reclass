@@ -12,10 +12,10 @@ following:
 
 ```bash
 python arrivals.py --tc 5.1 --sigma 0.41 --t-min 2 --t-max 5 --arima 3,0,0 \
-       < chile.csv \
+       < data.csv \
     | python departures.py --t-min 14 --t-max 30 \
     | python rt.py
 ```
 
-where `chile.csv` is a CSV file in which one column contains the
-observed infections and is title "infection".
+where `data.csv` is a CSV file in which one column contains the
+observed infections and is titled "infection".
