@@ -22,10 +22,9 @@ def reclass(df, pr):
         yield from map(keys, values)
 
 arguments = ArgumentParser()
-arguments.add_argument('--tc', type=float)
-arguments.add_argument('--t-min', type=int)
-arguments.add_argument('--t-max', type=int)
-arguments.add_argument('--sigma', type=float)
+arguments.add_argument('--incubation-days', type=float)
+arguments.add_argument('--incubation-deviation', type=float)
+arguments.add_argument('--diagnosis')
 arguments.add_argument('--arima')
 arguments.add_argument('--threshold', type=float, default=0.75)
 args = arguments.parse_args()
@@ -33,7 +32,8 @@ args = arguments.parse_args()
 #
 #
 #
-z = Z(args.tc, args.sigma, args.t_min, args.t_max)()
+(t_min, t_max) = sorted(map(int, args.diagnosis.split(',')))
+z = Z(args.incubation_days, args.incubation_deviation, t_min, t_max)()
 k = (z
      .query('F < {}'.format(args.threshold))
      .filter(items=['Pk'])
