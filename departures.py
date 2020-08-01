@@ -19,15 +19,18 @@ def reclass(df, pr):
         yield from map(keys, values)
 
 arguments = ArgumentParser()
-arguments.add_argument('--t-min', type=int)
-arguments.add_argument('--t-max', type=int)
+arguments.add_argument('--normal-discharge', type=int)
+arguments.add_argument('--extended-discharge', type=int)
 args = arguments.parse_args()
+
+if args.normal_discharge > args.extended_discharge:
+    raise ValueError('Normal discharge should come before extended')
 
 #
 #
 #
-tri = Triangle(args.t_min, args.t_max)()
-k = tri.iloc[:args.t_max-1].filter(items=['Pk'])
+tri = Triangle(args.normal_discharge, args.extended_discharge)()
+k = tri.filter(items=['Pk'])
 
 #
 #
