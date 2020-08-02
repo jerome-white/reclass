@@ -11,10 +11,16 @@ To replicate the R_t values reported in the original paper, run the
 following:
 
 ```bash
-python arrivals.py --tc 5.1 --sigma 0.41 --t-min 2 --t-max 5 --arima 3,0,0 \
-       < data.csv \
-    | python departures.py --t-min 14 --t-max 30 \
-    | python rt.py
+$> python arrivals.py \
+	  --incubation-days 5.1 \
+	  --incubation-deviation 0.41 \
+	  --diagnosis 2,5 \
+	  --arima 3,0,0 \
+	  < data.csv \
+       | python departures.py \
+		--normal-discharge 14 \
+		--extended-discharge 30 \
+       | python rt.py
 ```
 
 where `data.csv` is a CSV file in which one column contains the
